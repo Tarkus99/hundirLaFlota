@@ -5,20 +5,17 @@ public class FiltroPlayer {
         char direction;
 
         do {
-            filtro = CoordenadasPlayer.coordenadasPlayer(barcos, indice);
+            filtro = CoordenadasPlayer.coordenadasPlayer(barcos, indice, Messages.messageCords(barcos,indice));
             direction = DirectionPlayer.direction();
-            if (ShipFits.shipFits(tableroPlayer, barcos, filtro, direction, indice)) {
-                System.out.print("El barco SÍ cabe ");
+            if (shipFits.shipFits(tableroPlayer, barcos, filtro, direction, indice)) {
                 pass = true;
             } else {
                 System.out.println("El barco NO cabe");
             }
             if (pass)
-                if (!IsEmpty.isEmpty(tableroPlayer, filtro, direction, indice, barcos)) {
+                if (!isEmpty.isEmpty(tableroPlayer, filtro, direction, indice, barcos)) {
                     System.out.println("YA hay barcos en esa posición");
                     pass = false;
-                } else {
-                    System.out.println("y esa posición está LIBRE");
                 }
         } while (!pass);
 

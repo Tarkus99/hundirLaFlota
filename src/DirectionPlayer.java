@@ -1,8 +1,7 @@
-import java.util.Scanner;
 public class DirectionPlayer {
     public static char direction(){
-        Scanner sc = new Scanner(System.in);
-        String input = "";
+
+        String input;
         char direction;
         boolean directionFormat = false;
         boolean correctDirection = false;
@@ -10,13 +9,13 @@ public class DirectionPlayer {
         do {
             do {
                 System.out.println("Do you want the ship horizontal[H] or vertical[V]?");
-                input = sc.nextLine();
+                input = Entrada.entrada();
                 if (input.length() != 1) {
                     System.out.println("Not valid format");
                 }else {
                     directionFormat = true;
                 }
-            } while (!directionFormat);
+            } while (!directionFormat);//primero que le formato sea correcto
 
             direction = input.charAt(0);
 
@@ -24,9 +23,8 @@ public class DirectionPlayer {
                 correctDirection = true;
             else
                 System.out.println("Incorrect direction");
-                directionFormat = false;
 
-        }while(!correctDirection);
+        }while(!correctDirection);//luego que el valor sea válido ('v' o 'h')
 
         return Character.toLowerCase(direction);
     }

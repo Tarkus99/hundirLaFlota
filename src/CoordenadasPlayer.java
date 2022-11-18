@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class CoordenadasPlayer {
-    public static int[] coordenadasPlayer(int[] barcos, int indice) {
+    public static int[] coordenadasPlayer(int[] barcos, int indice, String message) {
 
         int[] cordNum = new int[2];
 
@@ -17,8 +17,8 @@ public class CoordenadasPlayer {
 
         do {
             do {
-                System.out.println("Insert a coordinate to put a ship of length " + barcos[indice] + " as follows [A9]");
-                input = sc.nextLine();
+                System.out.println(message);
+                input = Entrada.entrada();
                 longitudInput = input.length();
 
                 if (longitudInput!=2) {
@@ -28,9 +28,9 @@ public class CoordenadasPlayer {
                 }else{
                     System.out.println("Incorrect format");
                 }
-            } while (!formato);
+            } while (!formato); //primero determino que el formato sea correcto
 
-                cordY = (input.charAt(0)) - 'a';
+                cordY = (Character.toLowerCase(input.charAt(0))) - 'a';
                 cordX = Character.getNumericValue(input.charAt(1));
 
 
@@ -41,7 +41,7 @@ public class CoordenadasPlayer {
                 formato = false;
             }
 
-        } while (!bounds);
+        } while (!bounds); //luego que la coordenada esté dentro del tablero
 
         return new int[]{cordY,cordX};
     }

@@ -1,0 +1,53 @@
+
+
+
+    Main:
+        -Declaro 4 arrays correspondientes a los 4 mapas, yb se mostrarán en este orden:
+            -Arriba a la izquierda el tablero donde el jugador pone los barcos.
+            -Arriba a la derecha el tablero donde el jugador anota sus tiros.
+            -Abajo a la izquierda donde el PC pone sus barcos.
+            -Abajo a la derecha donde el PC anota sus disparos.
+
+        -Leyenda de disparos:
+            -'~' es agua.
+            -'X' es que el usuario ha tocado un barco enemigo.
+            -'H' es que uno de los barcos del usuario ha sido tocado.
+            -'W' es que hay agua.
+
+        -La cantidad de barcos por defecto es de 4, insertados en un array 'barcos':
+            -2 de longitud 4.
+            -1 de longitud 3.
+            -1 de longitud 2.
+            La puntuación total será de 13 puntos (la suma de la longitud de todos los barcos).
+
+        -El usuario tendrá la posibilidad de poner los barcos de manera horizontal (H) o vertical (V).
+
+        -CoordenadasPlayer:
+            -Recibe el array 'barcos' para sacar por pantalla el tipo de barco a poner, junto con su índice.
+            -El usuario insertará un String. Si la longitud del String es diferente a 2, el formato es incorrecto
+            y se repetirá el proceso. Cuando la longitud del input sea igual a 2, verifico con Character.isLetter y
+            Character.isDigit si la pimera posición es una letra y la segunda un número. Si no, vuelta a empezar.
+            Cuando el formato es correcto, paso la letra a su quivalente en número, y verifico si ambos valores
+            están dentro del tablero. Si es así, se sale del bucle y retorna un array de 2 posiciones.
+            La primera posición indica la posición en el eje 'Y' (las letras) y la segunda posición del array
+            indica el eje 'X'.
+
+
+        -DirectionPlayer:
+            -Siguiendo la misma mecánica que antes, pregunto la dirección del barco. Verical siempre será hacia abajo
+            y horizontal hacia la derecha. Se espera un carácter del usuario, 'V' o 'H'. Primero verifico la longitud
+            del input del usuario. Una vez verificado, verifico que el carácter es una 'V' o una 'Y'. Si es así,
+            se sale del segundo bucle y devuelve un char.
+
+        -FiltroPlayer:
+            -En un bucle do while pregunto al usuario através de los métodos anteriores por la coordenada y la
+            dirección. Luego a través del método ShipFits verifico que la posición del usuario más el tamaño
+            del barco en esa iteración (dependiendo de que valor tenga el índice, puede ser un barco de 4, 3 o 2)
+            sea menor o igual a la longitud máxima del array (-1).
+            Me devuelve un booleano y pasa a la siguiente verificación.
+            -El programa entrará a verificar el método 'isEmpty' sólo cuando el anterior método verifique que el barco
+            cabe dentro del tablero. Si no, no se llamará al método 'isEmpty' y volverá a empezar desde el principio.
+            -'isEmpty' verifica que en la posición donde el usuario quiere poner un barco y en las siguientes donde
+            el barco se posicionará, hay agua. Si se encuentra con una 'B', devuelve falso y vuelve a empezar el bucle.
+            -Si el barco cabe y sólo hay agua, el programa se sale del bucle y, dependiendo de la dirección, relleno con
+            'B' las posiciones correspondientes.

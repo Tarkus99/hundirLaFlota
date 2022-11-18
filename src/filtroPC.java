@@ -1,4 +1,4 @@
-public class filtroPC {
+public class FiltroPC {
     public static void filtro(char[][] tableroPC, int[] barcos, int indice) {
 
         boolean pass = false;
@@ -9,14 +9,22 @@ public class filtroPC {
             filtro = CoordenadasPC.coordenadasPC();
             direction = DirectionPC.directionPC();
 
-            if (shipFits.shipFits(tableroPC, barcos, filtro, direction, indice)) {
+            if (ShipFits.shipFits(tableroPC, barcos, filtro, direction, indice)) {
+                System.out.print("El barco SÍ cabe ");
                 pass = true;
+            } else {
+                System.out.println("El barco NO cabe");
             }
             if (pass)
-                if (!IsEmptyv2.isEmpty(tableroPC, filtro, direction, indice, barcos)) {
+                if (!IsEmpty.isEmpty(tableroPC, filtro, direction, indice, barcos)) {
+                    System.out.println("YA hay barcos en esa posición");
                     pass = false;
+                } else {
+                    System.out.println("y esa posición está LIBRE");
                 }
         } while (!pass);
+
+        System.out.println(filtro[0] + " " + filtro[1]);
 
         if (direction == 'v') {
             for (int i = 0, j = filtro[0]; i < barcos[indice]; i++, j++) {
