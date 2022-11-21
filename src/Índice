@@ -1,7 +1,6 @@
 
+    Explicación de los métodos:
 
-
-    Main:
         -Declaro 4 arrays correspondientes a los 4 mapas, yb se mostrarán en este orden:
             -Arriba a la izquierda el tablero donde el jugador pone los barcos.
             -Arriba a la derecha el tablero donde el jugador anota sus tiros.
@@ -10,44 +9,100 @@
 
         -Leyenda de disparos:
             -'~' es agua.
-            -'X' es que el usuario ha tocado un barco enemigo.
-            -'H' es que uno de los barcos del usuario ha sido tocado.
-            -'W' es que hay agua.
+            -'T' es que el usuario ha tocado un barco enemigo.
+            -'X' es que uno de los barcos del usuario ha sido tocado.
+            -'W' es que el disparo del usuario es agua.
 
-        -La cantidad de barcos por defecto es de 4, insertados en un array 'barcos':
-            -2 de longitud 4.
-            -1 de longitud 3.
-            -1 de longitud 2.
-            La puntuación total será de 13 puntos (la suma de la longitud de todos los barcos).
+        -Se puede elegir la cantidad de barcos que tendrá la flota:
+            -Con Barcos.numeroBarcos() doy a elegir entre 4, 6 u 8 barcos. Automáticamnte, el array de barcos
+            se creará con la misma longitud.
+            -Después pregunto al usuario cuantos barcos de 4 (portaviones), 3 (buques) y 2 (lanchas) casillas quiere.
+            En la opción de 8 barcos no permito al usuario poner todos los barcos de 4 casillas. Aquí el motivo:
+                -Ya que no se pueden tocar, cada barcos de 4 casillas ocupa físicamente 14 casillas.
+                14*8 es más de las 100 casillas del tablero, y el PC entraría en un bucle infinito.
+            -Si la cantidad de portaviones es menor a la longitud del array (4, 6 u 8), significa qu quedan barcos
+            por poner, y la variable longitudFlota se reduce a (longitudFlota_inicial - cantidad_portaviones), y entra
+            a preguntar cuánntos buques queremos. Si después de introducir el número de buques la cantidad sigue siendo
+            menor a longitudFlota, los barcos restantes se asignarán automáticamente como lanchas. Aquí juego con el
+            límite izquierdo y derecho para ir llenando el array según el usuario introduce sus barcos. En cambio, si
+            la cantidad de portaviones es igual a longitudFlota en las opciones 4 ó 6, nunca entrará a preguntar por
+            los buques o lanchas.
+            -Una vez terminado el proceso, se mostrará un mensaje que te resumirá el número de barcos y su tipo.
+            -El array barcos está ordenado de mayor a menor, es decir, los portaviones estarán
+            en las primeras posiciones, seguidos de los buques, si los hubieran, y de las lanchas.
 
         -El usuario tendrá la posibilidad de poner los barcos de manera horizontal (H) o vertical (V).
 
         -CoordenadasPlayer:
-            -Recibe el array 'barcos' para sacar por pantalla el tipo de barco a poner, junto con su índice.
+            -Recibe el array 'barcos' y el índice(que se incrementará dentro del bucle 'for') para sacar por pantalla
+            el tipo de barco a poner, dependiendo del índice.
             -El usuario insertará un String. Si la longitud del String es diferente a 2, el formato es incorrecto
             y se repetirá el proceso. Cuando la longitud del input sea igual a 2, verifico con Character.isLetter y
-            Character.isDigit si la pimera posición es una letra y la segunda un número. Si no, vuelta a empezar.
-            Cuando el formato es correcto, paso la letra a su quivalente en número, y verifico si ambos valores
+            Character.isDigit si la pimera posición es una letra y la segunda un número. Si no, el formato es incorrecto
+            y vuelta a empezar.
+            -Cuando el formato es correcto, paso la letra a su quivalente en número, y verifico si ambos valores
             están dentro del tablero. Si es así, se sale del bucle y retorna un array de 2 posiciones.
-            La primera posición indica la posición en el eje 'Y' (las letras) y la segunda posición del array
-            indica el eje 'X'.
+            La primera posición indica la posición en el eje 'Y' (las letras) y la segunda posición del array indica
+            la posición del eje 'X'.
 
 
         -DirectionPlayer:
-            -Siguiendo la misma mecánica que antes, pregunto la dirección del barco. Verical siempre será hacia abajo
-            y horizontal hacia la derecha. Se espera un carácter del usuario, 'V' o 'H'. Primero verifico la longitud
-            del input del usuario. Una vez verificado, verifico que el carácter es una 'V' o una 'Y'. Si es así,
-            se sale del segundo bucle y devuelve un char.
+            -Siguiendo la misma mecánica que antes, pregunto la dirección del barco. Se espera un carácter del usuario,
+            'V' o 'H'. Pero como el usuario puede equivocarse, la entrada será una String. Primero verifico la longitud
+            del input del usuario, que sea igual a 1. Una vez verificado, verifico que el carácter es una 'V' o una 'H'. Si es así,
+            se sale del segundo bucle y devuelve el mismo char toLowerCase().
 
         -FiltroPlayer:
-            -En un bucle do while pregunto al usuario através de los métodos anteriores por la coordenada y la
+            -En un bucle do while pregunto al usuario mediante los métodos anteriores por la coordenada y la
             dirección. Luego a través del método ShipFits verifico que la posición del usuario más el tamaño
             del barco en esa iteración (dependiendo de que valor tenga el índice, puede ser un barco de 4, 3 o 2)
-            sea menor o igual a la longitud máxima del array (-1).
+            sea menor o igual a la longitud máxima del array-1.
             Me devuelve un booleano y pasa a la siguiente verificación.
-            -El programa entrará a verificar el método 'isEmpty' sólo cuando el anterior método verifique que el barco
-            cabe dentro del tablero. Si no, no se llamará al método 'isEmpty' y volverá a empezar desde el principio.
+            -El programa entrará a verificar el método 'isEmptyv2' sólo cuando el anterior método verifique que el barco
+            cabe dentro del tablero. Si no, no se llamará al método 'isEmptyv2' y volverá a empezar desde el principio.
             -'isEmpty' verifica que en la posición donde el usuario quiere poner un barco y en las siguientes donde
-            el barco se posicionará, hay agua. Si se encuentra con una 'B', devuelve falso y vuelve a empezar el bucle.
-            -Si el barco cabe y sólo hay agua, el programa se sale del bucle y, dependiendo de la dirección, relleno con
-            'B' las posiciones correspondientes.
+            el barco se posicionará, aśi como en las contiguas, hay agua. Si se encuentra con una 'B', devuelve falso
+            y vuelve a empezar el bucle.
+            -Si el barco cabe y sólo hay agua, isEmptyv2 devuelve true y el programa se sale del bucle y,
+            dependiendo de la dirección, se rellena con 'B' las posiciones correspondientes en el tablero.
+            -Esto se insertará en un bucle for y se repetirá un número de veces equivalente a la longitud del array
+            barcos[].
+
+        -FiltroPC:
+            -Ídem a FiltroPlayer pero al ser la computadora, las coordenadas son escogidas automáticamente con un
+            Math.random() entre los límites del array.
+            -La dirección también se determina con un Math.random(), como si fuese un cara o cruz.
+            -Con shipFits() y isEmpty() sigue el mismo proceso que con FiltroPlayer.
+
+        -Jugar:
+            -En esta clase es dónde realmente se juega.
+            -Especifico los valores máximos y mínimos de los distintos ejes para enviarlos al Math.random() en el turno
+            del PC.
+            -Especifico un contador, que modificará los valores máximos y mínimos si el PC se bloquea en alguna
+            posición.
+            -Llamamos al método ShootsPlayer:
+                -La primera parte de este método llama al mismo método que usamos para poner los barcos
+                dentro de un bucle do while. Si esas coordenadas tienen una 'H' o una 'W' en el tablero
+                de disparos del jugador, vuelve a pedir las coordenadas.
+                -Si se sale, es que las coordenadas no son repetidas.
+                -Si en el tablero del PC hay un barco en esas mismas coordenadas, devolvemos true.
+                Al devolver true el contador de puntos del jugador se incrementa en +1.
+                -En cambio si hay agua, nos aparece un mensaje de que hemos fallado y le toca el turno
+                a el PC.
+            -Turno del PC:
+                -Aquí tengo que pedir las coordenadas en la misma clase porque las voy a necesitar
+                más adelante, y porque el método ShootsPC me ha de devolver un booleano.
+                -Por defecto los valores máximos y mínimos del número aleatorio son los límites del tablero (0 y 9).
+                Sin embargo, si ShootsPC devuelve true, significa que ha tocado un barco, y los valores
+                máximos y mínimos se modifican para el próximo turno. En este caso, la proxima cordenada estará en +-2
+                posiciones con respecto a la anterior coordenada certera, para tener más posibilidades de acertar.
+                -Aquí surge un problema y es que si al PC le falta un punto para ganar, pero esa coordenada está a más
+                de 2 casillas de distancia de la anterior, el PC entrará en un bucle infinito.
+                Al haber acertado, sus valores máximos y mínimos se acotan en +-2 casillas, por lo que cualquier
+                coordenada tocará 'W' o 'H' en una zona acotada del tablero y el programa repetirá infinitamente.
+                -Por esto agregué el contador. Cada repetición de coordenadas incrementa en 1 el contador. Si el PC se
+                atasca, lo hará hasta 4 veces. Una vez el contador llegue a 4, los valores máximos y mínimos se resetean
+                y el PC ya tiene la posibilidad de disparar el resto de casillas libres.
+
+        -La clase jugar se repetirá mientras el PC y el usuario no lleguen a la máxima puntuación.
+        -La puntuación es el sumatorio de cada valor del array barcos[].

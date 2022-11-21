@@ -1,20 +1,20 @@
 public class FiltroPlayer {
     public static void filtro(char[][] tableroPlayer, int[] barcos, int indice) {
         boolean pass = false;
+        boolean message = true;
         int[] filtro = new int[2];
         char direction;
 
         do {
-            filtro = CoordenadasPlayer.coordenadasPlayer(barcos, indice, Messages.messageCords(barcos,indice));
-            direction = DirectionPlayer.direction();
-            if (shipFits.shipFits(tableroPlayer, barcos, filtro, direction, indice)) {
+            filtro = Coordenadas.coordenadasPlayer(Messages.messageHowToCords(barcos, indice));
+            direction = Direction.directionPlayer();
+            if (shipFits.shipFits(tableroPlayer, barcos, filtro[0], filtro[1], direction, indice)) {
                 pass = true;
             } else {
                 System.out.println("El barco NO cabe");
             }
             if (pass)
-                if (!isEmpty.isEmpty(tableroPlayer, filtro, direction, indice, barcos)) {
-                    System.out.println("YA hay barcos en esa posición");
+                if (!IsEmptyv2.isEmpty(tableroPlayer, filtro[0], filtro[1], direction, indice, barcos, message)) {
                     pass = false;
                 }
         } while (!pass);

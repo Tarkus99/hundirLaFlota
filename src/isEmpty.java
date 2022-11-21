@@ -1,4 +1,4 @@
-public class IsEmpty {
+public class isEmpty {
     public static boolean isEmpty(char[][] tablero, int[] rightCords, char direction, int indice, int[] barcos) {
 
         boolean colision = false;
@@ -8,7 +8,7 @@ public class IsEmpty {
         if (direction == 'v') {
             j = rightCords[0];
             while (!colision && i < barcos[indice]) {
-                if (tablero[j][rightCords[1]] == 'b') {
+                if (tablero[j][rightCords[1]] == 'B') {
                     colision = true;
                 }
                 i++;
@@ -17,7 +17,7 @@ public class IsEmpty {
         } else {
             j = rightCords[1];
             while (!colision && i < barcos[indice]) {
-                if (tablero[rightCords[0]][j] == 'b') {
+                if (tablero[rightCords[0]][j] == 'B') {
                     colision = true;
                 }
                 i++;

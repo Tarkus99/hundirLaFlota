@@ -1,57 +1,42 @@
 public class Main {
     public static void main(String[] args) {
 
+        int indice = 0;
+        int aciertosPlayer = 0;
+        int aciertosPC = 0;
+
         char[][] tableroPlayer = new char[10][10];
         char[][] disparosPlayer = new char[10][10];
         char[][] tableroPC = new char[10][10];
         char[][] disparosPC = new char[10][10];
 
-        String reglas = Reglas.reglas();
-        int[] barcos = new int[]{4, 4, 3, 2};
-        int puntuacion = barcos[0] + barcos[1] + barcos[2] + barcos[3];
-        int indice;
-        int shootsPlayer = 0;
-        int shootsPC = 0;
+        FillTable.fillTable(tableroPlayer, disparosPlayer, tableroPC, disparosPC);
+        LimpiarPantalla.limpiar();
+        System.out.println(Messages.reglas1());
 
-        limparPantalla.limpiar();
-        System.out.println(reglas);
+        int[] barcos = Barcos.cuantosDeCadaTipo();
+        int puntuacion = Barcos.puntuacion(barcos);
 
-        FillTable.fillTable(tableroPlayer);
-        FillTable.fillTable(disparosPlayer);
-        FillTable.fillTable(tableroPC);
-        FillTable.fillTable(disparosPC);
+        boolean verTablero = VerTableroPC.yesOrNot();
 
-        ShowTable.showTable(tableroPlayer, disparosPlayer, tableroPC, disparosPC);
+        Entrada.enter(Messages.enterComenzar());
 
-        indice = 0;
-        for (int i = 1; i <= barcos.length; i++, indice++) {
+        LimpiarPantalla.limpiar();
+        ShowTable.showTable(tableroPlayer, disparosPlayer, tableroPC, disparosPC, puntuacion, aciertosPlayer, aciertosPC, verTablero);
+
+        for (int i = 0; i < barcos.length; i++, indice++) {
             FiltroPlayer.filtro(tableroPlayer, barcos, indice);
-            limparPantalla.limpiar();
-            ShowTable.showTable(tableroPlayer, disparosPlayer, tableroPC, disparosPC);
+            LimpiarPantalla.limpiar();
+            ShowTable.showTable(tableroPlayer, disparosPlayer, tableroPC, disparosPC, puntuacion, aciertosPlayer, aciertosPC, verTablero);
         }
         indice = 0;
         for (int i = 0; i < barcos.length; i++, indice++) {
             filtroPC.filtro(tableroPC, barcos, indice);
         }
+        ShowTable.showTable(tableroPlayer, disparosPlayer, tableroPC, disparosPC, puntuacion, aciertosPlayer, aciertosPC,verTablero);
 
-        ShowTable.showTable(tableroPlayer, disparosPlayer, tableroPC, disparosPC);
+        Jugar.jugar(tableroPlayer, disparosPlayer, tableroPC, disparosPC, aciertosPlayer,aciertosPC,puntuacion, verTablero);
 
-        while (shootsPC < puntuacion && shootsPlayer < puntuacion) {
-
-            if (ShootsPlayer.shootsPlayer(tableroPC, disparosPlayer, shootsPlayer)) {
-                shootsPlayer++;
-            }
-
-            if (ShootPC.shoot(tableroPlayer, disparosPC)) {
-                shootsPC++;
-            }
-            ShowTable.showTable(tableroPlayer, disparosPlayer, tableroPC, disparosPC);
-        }
-
-        if (shootsPC == puntuacion)
-            System.out.println(ANSI_RED + "YOU LOST");
-        else
-            System.out.println(ANSI_GREEN + "YOU WON");
     }
 
     public static final String ANSI_RED = "\u001B[31m";
