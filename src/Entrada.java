@@ -6,18 +6,8 @@ public class Entrada {
         return input;
     }
     public static int entradaInt() {
-        /*boolean isInt= false;*/
-        int input = 0;
+        int input;
         Scanner sc = new Scanner(System.in);
-        /*do {
-            if (sc.hasNextInt()) {
-                input = sc.nextInt();
-                isInt = true;
-            } else {
-                System.out.println("Eso no es un número entero...");
-                sc.next();
-            }
-        } while (!isInt);*/
         while (!sc.hasNextInt()) {
             System.out.println("Eso no es un número entero...");
             sc.next();
@@ -30,5 +20,10 @@ public class Entrada {
         System.out.println(message);
         Scanner sc = new Scanner(System.in);
         sc.nextLine();
+    }
+
+    public static void limpiar(){
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 }

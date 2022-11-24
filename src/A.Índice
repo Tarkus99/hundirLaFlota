@@ -72,7 +72,7 @@
             -Ídem a FiltroPlayer pero al ser la computadora, las coordenadas son escogidas automáticamente con un
             Math.random() entre los límites del array.
             -La dirección también se determina con un Math.random(), como si fuese un cara o cruz.
-            -Con shipFits() y isEmpty() sigue el mismo proceso que con FiltroPlayer.
+            -Con ShipFits() y isEmpty() sigue el mismo proceso que con FiltroPlayer.
 
         -Jugar:
             -En esta clase es dónde realmente se juega.

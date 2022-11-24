@@ -1,4 +1,4 @@
-public class shipFits{
+public class shipFits {
     public static boolean shipFits(char[][] tablero, int[] barcos, int cordY, int cordX, char direction, int indice) {
 
         if (direction == 'v') {
