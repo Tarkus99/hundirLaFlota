@@ -40,8 +40,11 @@ public class Main {
 
         prep.loop(Clip.LOOP_CONTINUOUSLY);
         System.out.println(Messages.reglas1());
-        barcos = Barcos.cuantosDeCadaTipo();
-        puntuacionTotal = Barcos.puntuacion(barcos);
+        do {
+            barcos = Barcos.cuantosDeCadaTipo();
+            puntuacionTotal = Barcos.puntuacion(barcos);
+        }while(!PreguntasYesOrNot.contento());
+
         Entrada.enter(Messages.enterContinuar());
 
         Entrada.limpiar();
@@ -49,7 +52,7 @@ public class Main {
         Filtro.filtro(tableroPlayer, disparosPlayer, barcos, 0, true);
         Filtro.filtro(tableroPC, disparosPC, barcos, 0, false);
 
-        verTablero = VerTableroPC.yesOrNot();
+        verTablero = PreguntasYesOrNot.verTablero();
         Entrada.enter(Messages.enterComenzar());
         Music.menu();
         try {
@@ -64,14 +67,13 @@ public class Main {
         int[] aux = new int[]{0,0};
         boolean PChit = false;
         int contadorPc = 0;
-       /* ShowTable.showTable(tableroPlayer, disparosPlayer, tableroPC, disparosPC, puntuacionTotal, aciertosPlayer, aciertosPC, verTablero);*/
             while (aciertosPC < puntuacionTotal && aciertosPlayer < puntuacionTotal) {
                 Entrada.limpiar();
                 ShowTable.showTable(tableroPlayer, disparosPlayer, tableroPC, disparosPC, puntuacionTotal, aciertosPlayer, aciertosPC, verTablero);
-               /* if (!PChit) {
+                if (!PChit) {
                     if (ShootsPlayer.shootsPlayer(tableroPC, disparosPlayer))
                         aciertosPlayer++;
-                }*/
+                }
                 if (PChit) System.out.println("El PC repite turno");
                 disparosPc = ShootPC.shoot(tableroPlayer, disparosPC, PChit, aux, contadorPc);
                 System.out.println(Messages.disparoPC(disparosPc[0], disparosPc[1]));
@@ -84,8 +86,6 @@ public class Main {
                 }else{
                     contadorPc--;
                     PChit = false;
-                    /*aux[0] = disparosPc[0];
-                    aux[1] = disparosPc[1];*/
                 }
                 Entrada.enter(Messages.enterContinuar());
             }

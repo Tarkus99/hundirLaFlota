@@ -11,7 +11,6 @@ public class ShootPC {
             } while (disparoRepetido(cordY, cordX, disparosPC));
             return new int[]{cordY, cordX};
         }else{
-            /*System.out.println(ANSI_RED + "El PC repite turno" + ANSI_RESET);*/
             desatascarIA = 10;
             do {
                 if (desatascarIA>0) {
