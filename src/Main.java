@@ -24,9 +24,8 @@ public class Main {
         int aciertosPlayer = 0;
         int aciertosPC = 0;
         int puntuacionTotal;
-        int cordYPC, cordXPC;
         boolean verTablero;
-        boolean pasa = false;
+        boolean isPlayer = false;
 
 
         char[][] tableroPlayer = new char[10][10];
@@ -43,20 +42,22 @@ public class Main {
         do {
             barcos = Barcos.cuantosDeCadaTipo();
             puntuacionTotal = Barcos.puntuacion(barcos);
-        }while(!PreguntasYesOrNot.contento());
+        }while(!PreguntasYesOrNot.yesornot(Messages.contento()));
 
         Entrada.enter(Messages.enterContinuar());
-
         Entrada.limpiar();
 
-        Filtro.filtro(tableroPlayer, disparosPlayer, barcos, 0, true);
+        if (PreguntasYesOrNot.yesornot(Messages.rellenarAuto())) isPlayer = false;
+        else isPlayer = true;
+
+        Filtro.filtro(tableroPlayer, disparosPlayer, barcos, 0, isPlayer);
         Filtro.filtro(tableroPC, disparosPC, barcos, 0, false);
 
-        verTablero = PreguntasYesOrNot.verTablero();
+        verTablero = PreguntasYesOrNot.yesornot(Messages.verTableroPC());
         Entrada.enter(Messages.enterComenzar());
         Music.menu();
         try {
-            Thread.sleep(2*1000);
+            Thread.sleep(3800);
         } catch (Exception e) {
             System.out.println(e);
         }
