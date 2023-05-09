@@ -1,4 +1,5 @@
 public class Empty {
+    //este método verifica que alrededor de el futuro barco sólo haya agua, empezando desde la misma coordenada.
     public static boolean empty(char[][] tablero, int cordY, int cordX) {
 
         boolean pasa;

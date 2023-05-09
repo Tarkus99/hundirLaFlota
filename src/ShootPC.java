@@ -1,19 +1,20 @@
 public class ShootPC {
-    public static int[] shoot(char[][] tableroPlayer, char[][] disparosPC, boolean anteriorAcierto, int[] aux, int contadorDisparos) {
+    public static int[] shoot(char[][] disparosPC, boolean anteriorAcierto, int[] aux, int contadorDisparos) {
         int cordY , cordX ;
         int[] filtroIA;
         int desatascarIA;
 
-        if (!anteriorAcierto && contadorDisparos <= 0) {
+        if (!anteriorAcierto && contadorDisparos <= 0) { //si no ha acertado, la proóxima tirada será aleatoria
             do {
                 cordY = Coordenadas.random(9, 0);
                 cordX = Coordenadas.random(9, 0);
             } while (disparoRepetido(cordY, cordX, disparosPC));
             return new int[]{cordY, cordX};
         }else{
-            desatascarIA = 10;
+            desatascarIA = 10; //esto lo he puesto porque a veces el PC puede quedarse atascado en una coordenada...
+            //...aún tengo que mejorar cosas de la IA
             do {
-                if (desatascarIA>0) {
+                if (desatascarIA>0) { // si ha acertado, entrará en el método IA
                     filtroIA = IA.ia(disparosPC, aux);
                     cordY = filtroIA[0];
                     cordX = filtroIA[1];
@@ -22,12 +23,12 @@ public class ShootPC {
                     cordY = Coordenadas.random(9, 0);
                     cordX = Coordenadas.random(9, 0);
                 }
-            }while ((disparoRepetido(cordY, cordX, disparosPC)));
+            }while ((disparoRepetido(cordY, cordX, disparosPC))); // se repetirá mientras el disparo no haya sido realizado antes
             return new int[]{cordY,cordX};
         }
     }
-    public static boolean pcAcierta(int cordY, int cordX, char[][] disparosPC, char[][] tableroPC, char[][] tableroPlayer){
-        if (tableroPlayer[cordY][cordX] == 'B') {
+    public static boolean pcAcierta(int cordY, int cordX, char[][] disparosPC, char[][] tableroPlayer){
+        if (tableroPlayer[cordY][cordX] == '\u25A0') {
             System.out.println(ANSI_RED + "¡TE HAN TOCADO UN BARCO!" + ANSI_RESET + "\n");
             disparosPC[cordY][cordX] = 'H';
             tableroPlayer[cordY][cordX] = 'X';

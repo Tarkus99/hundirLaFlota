@@ -2,8 +2,7 @@ import java.util.Scanner;
 public class Entrada {
     public static String entradaTexto() {
         Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
-        return input;
+        return sc.nextLine();
     }
     public static int entradaInt() {
         int input;
